@@ -6,9 +6,10 @@
 
         public function run():void {
             $this->setView(new View());
-            $this->setModel(new UserModel());
-            $this->getModel()->makeConnection();
-            $this->getView()->setTemplate("../../comp3385-assign-2-framework-400002413/tpl/login.tpl.php");
+            // $this->setModel(new UserModel());
+            $this->setMapper(new UserMapper());
+            // $this->getModel()->makeConnection();
+            $this->getView()->setTemplate("../../comp3385-assign-3-framework-400002413/tpl/login.tpl.php");
             $this->getSessionManager()->create();
 
             if (isset($_SESSION["user"])) {
@@ -21,26 +22,26 @@
                 $email = $this->commandContext->get("email");
                 $password = $this->commandContext->get("password");
 
-                if ($this->getModel()->findRecord($email) == array()) {
+                if ($this->getMapper()->find($email)->getName() == "") {
                     $this->getView()->addVar("loginError", "Invalid email/password");
-                    $this->getResponseHandler()->getHeader()->setData("Header", "Error");
-                    $this->getResponseHandler()->getState()->setData("State", "Error");
-                    $this->getResponseHandler()->getLogResponse()->setData("Logger", "Login unsuccessful");
+                    $this->getResponseHandler()->getHeader()->setData("Error");
+                    $this->getResponseHandler()->getState()->setData("Error");
+                    $this->getResponseHandler()->getLogResponse()->setData("Login unsuccessful");
                     $this->getSessionManager()->create();
                     $this->getSessionManager()->add("Response Handler", $this->getResponseHandler());
                     $this->getView()->display();
-                } elseif (!password_verify($password, $this->getModel()->findRecord($email)[0]["password"])) {
-                    $this->getResponseHandler()->getHeader()->setData("Header", "Error");
-                    $this->getResponseHandler()->getState()->setData("State", "Error");
-                    $this->getResponseHandler()->getLogResponse()->setData("Logger", "Login unsuccessful");
+                } elseif (!password_verify($password, $this->getMapper()->find($email)->getPassword())) {
+                    $this->getResponseHandler()->getHeader()->setData("Error");
+                    $this->getResponseHandler()->getState()->setData("Error");
+                    $this->getResponseHandler()->getLogResponse()->setData("Login unsuccessful");
                     $this->getSessionManager()->create();
                     $this->getSessionManager()->add("Response Handler", $this->getResponseHandler());
                     $this->getView()->addVar("loginError", "Invalid email/password");
                     $this->getView()->display();
                 } else {
-                    $this->getResponseHandler()->getHeader()->setData("Header", "Success");
-                    $this->getResponseHandler()->getState()->setData("State", "Success");
-                    $this->getResponseHandler()->getLogResponse()->setData("Logger", "Login successful");
+                    $this->getResponseHandler()->getHeader()->setData("Success");
+                    $this->getResponseHandler()->getState()->setData("Success");
+                    $this->getResponseHandler()->getLogResponse()->setData("Login successful");
                     $this->getSessionManager()->create();
                     $this->getSessionManager()->add("Response Handler", $this->getResponseHandler());
                     $this->getSessionManager()->create();
@@ -48,9 +49,9 @@
                     header("Location: index.php?controller=Profile");
                 }
             } else {
-                $this->getResponseHandler()->getHeader()->setData("Header", "Normal");
-                $this->getResponseHandler()->getState()->setData("State", "Normal");
-                $this->getResponseHandler()->getLogResponse()->setData("Logger", "Login page was visted successfully");
+                $this->getResponseHandler()->getHeader()->setData("Info");
+                $this->getResponseHandler()->getState()->setData("Info");
+                $this->getResponseHandler()->getLogResponse()->setData("Login page was visted successfully");
                 $this->getSessionManager()->create();
                 $this->getSessionManager()->add("Response Handler", $this->getResponseHandler());
                 $this->getView()->display();

@@ -43,33 +43,35 @@
                 if ($errorArray == array()) {
                     $this->getSessionManager()->create();
                     $this->getSessionManager()->add("signupmsg", "Sign Up Successful. Please login below");
-                    $this->setModel(new UserModel());
+					// $this->setModel(new UserModel());
+					$this->setMapper(new UserMapper());
             		$this->setView(new View());
-            		$this->getView()->setTemplate("../../comp3385-assign-2-framework-400002413/tpl/signup.tpl.php");
-            		$this->getModel()->makeConnection();
-            		$this->getModel()->register($fullName, $email, password_hash($password, PASSWORD_DEFAULT));
-            		$this->getResponseHandler()->getHeader()->setData("Header", "Normal");
-	            	$this->getResponseHandler()->getState()->setData("State", "Normal");
-	            	$this->getResponseHandler()->getLogResponse()->setData("Logger", "User registered successfully");
+            		$this->getView()->setTemplate("../../comp3385-assign-3-framework-400002413/tpl/signup.tpl.php");
+					// $this->getModel()->makeConnection();
+					$user = new User($fullName, $email, password_hash($password, PASSWORD_DEFAULT));
+            		$this->getMapper()->insert($user);
+            		$this->getResponseHandler()->getHeader()->setData("Normal");
+	            	$this->getResponseHandler()->getState()->setData("Normal");
+	            	$this->getResponseHandler()->getLogResponse()->setData("User registered successfully");
 	            	$this->getSessionManager()->add("Response Handler", $this->getResponseHandler());
                     header("Location: index.php?controller=Login");
                 } else {
                 	$this->setView(new View());
-                	$this->getView()->setTemplate("../../comp3385-assign-2-framework-400002413/tpl/signup.tpl.php");
+                	$this->getView()->setTemplate("../../comp3385-assign-3-framework-400002413/tpl/signup.tpl.php");
                     $this->getView()->addVar("errorArray", $errorArray);
-                    $this->getResponseHandler()->getHeader()->setData("Header", "Warning");
-	            	$this->getResponseHandler()->getState()->setData("State", "Warning");
-	            	$this->getResponseHandler()->getLogResponse()->setData("Logger", "Form information invalid");
+                    $this->getResponseHandler()->getHeader()->setData("Warning");
+	            	$this->getResponseHandler()->getState()->setData("Warning");
+	            	$this->getResponseHandler()->getLogResponse()->setData("Form information invalid");
 	            	$this->getSessionManager()->create();
 	            	$this->getSessionManager()->add("Response Handler", $this->getResponseHandler());
                     $this->getView()->display();
                 }
         	} else {
             	$this->setView(new View());
-            	$this->getView()->setTemplate("../../comp3385-assign-2-framework-400002413/tpl/signup.tpl.php");
-            	$this->getResponseHandler()->getHeader()->setData("Header", "Normal");
-	            $this->getResponseHandler()->getState()->setData("State", "Normal");
-	            $this->getResponseHandler()->getLogResponse()->setData("Logger", "Signup page was visted successfully");
+            	$this->getView()->setTemplate("../../comp3385-assign-3-framework-400002413/tpl/signup.tpl.php");
+            	$this->getResponseHandler()->getHeader()->setData("Normal");
+	            $this->getResponseHandler()->getState()->setData("Normal");
+	            $this->getResponseHandler()->getLogResponse()->setData("Signup page was visted successfully");
 	            $this->getSessionManager()->create();
 	            $this->getSessionManager()->add("Response Handler", $this->getResponseHandler());
             	$this->getView()->display();

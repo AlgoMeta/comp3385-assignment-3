@@ -1,6 +1,6 @@
 <?php
     use Framework\Mapper;
-    use Framework\Stream;
+    use Framework\DomainObject;
 
 	class StreamMapper extends Mapper{
         public function find($id): DomainObject {

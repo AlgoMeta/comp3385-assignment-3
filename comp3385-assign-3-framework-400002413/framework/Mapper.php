@@ -1,5 +1,5 @@
 <?php
-    namespace Framework;
+	namespace Framework;
 
 	abstract class Mapper {
         protected $pdo;

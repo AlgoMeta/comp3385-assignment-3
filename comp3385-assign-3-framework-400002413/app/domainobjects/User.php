@@ -20,7 +20,7 @@
             return $this->email;
         }
 
-        public function getPass() {
+        public function getPassword() {
             return $this->password;
         }
     }

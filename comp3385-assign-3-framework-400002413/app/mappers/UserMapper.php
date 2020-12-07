@@ -1,6 +1,7 @@
 <?php
     use Framework\Mapper;
-    use Framework\User;
+    use Framework\DomainObject;
+    use Framework\SessionManager;
 
 	class UserMapper extends Mapper{
         public function find($id): DomainObject {
@@ -9,7 +10,12 @@
             $stmt->execute();
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $res = $stmt->fetchAll();
-            $user = new User($res[0]["name"], $res[0]["email"], $res[0]["password"]);
+            if ($res != array()) {
+                $user = new User($res[0]["name"], $res[0]["email"], $res[0]["password"]);
+            } else {
+                $user = new User("", "", "");
+            }
+            
             return $user;
         }
 

@@ -19,7 +19,7 @@
 
 		public function dispatch(string $action):void {
 			$action = trim($action, "/");
-			if ($action == "comp3385-assign-2-public-400002413") {
+			if ($action == "comp3385-assign-3-public-400002413") {
 				$action = "home";
 			}
 			$command = $this->routes[$action]["command"];

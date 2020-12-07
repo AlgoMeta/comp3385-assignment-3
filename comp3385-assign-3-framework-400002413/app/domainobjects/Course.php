@@ -1,5 +1,5 @@
 <?php
-    use Framework\DomainObject;
+    namespace Framework;
 
     class Course implements DomainObject {
         private $courseName;

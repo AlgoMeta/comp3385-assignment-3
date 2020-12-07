@@ -9,14 +9,16 @@
         protected $validator;
         protected $responseHandler;
         protected $sessionManager;
+        protected $mapper;
         
         function __construct(){
             $this->model = null;
             $this->view = null;
+            $this->mapper = null;
             $this->commandContext = null;
-            $this->validator = Validator::getInstance();
+            $this->validator = Registry::getInstance()->getValidator();
             $this->responseHandler = ResponseHandler::getInstance();
-            $this->sessionManager = SessionManager::getInstance();
+            $this->sessionManager = Registry::getInstance()->getSessionManager();
         }
 
         public function setModel(Model $m):void{
@@ -27,12 +29,20 @@
             $this->view = $v;
         }
 
+        public function setMapper(Mapper $m):void{
+            $this->mapper = $m;
+        }
+
         public function getModel():Model{
             return $this->model;
         }
 
         public function getView():View{
             return $this->view;
+        }
+
+        public function getMapper():Mapper{
+            return $this->mapper;
         }
 
         public function setCommandContext(CommandContext $context) {

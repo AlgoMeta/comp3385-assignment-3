@@ -1,6 +1,7 @@
 <?php
     use Framework\Mapper;
     use Framework\Course;
+    use Framework\DomainObject;
 
 	class CourseMapper extends Mapper {
 

@@ -1,11 +1,12 @@
 <?php 
 
-	use Framework\DatabaseConnection;
+	namespace Framework;
+	use \PDO;
 	
 	class MOOCConnection extends DatabaseConnection {
 		
 		function __construct() {
-			$this->config = parse_ini_file("../../comp3385-assign-2-framework-400002413/config/mooc-config.ini");
+			$this->config = Registry::getInstance()->getDBConfig();
 			$this->servername = $this->config["servername"];
 			$this->username = $this->config["username"];
 			$this->password = $this->config["password"];
