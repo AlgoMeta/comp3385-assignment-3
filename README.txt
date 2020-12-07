@@ -1,6 +1,6 @@
-In order to run this project place the comp3385-assign-2-public-400002413 folder in your htdocs/www directory.
+In order to run this project place the comp3385-assign-3-public-400002413 folder in your htdocs/www directory.
 
-In order to run this project place the comp3385-assign-2-framework-400002413 folder outside your htdocs/www directory.
+In order to run this project place the comp3385-assign-3-framework-400002413 folder outside your htdocs/www directory.
 
 The Test User from assignment 1 has been added to the database.
 
